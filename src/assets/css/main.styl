@@ -1,0 +1,356 @@
+// 全局样式
+
+// designwidth = 750
+@import './var'
+@import $node-modules-path + 'nib'
+@import './reset'
+@import './mixin'
+
+html
+body
+  height 100%
+
+body
+  margin 0 auto
+  font-family '微软雅黑', 'Microsoft YaHei', Helvetica, STHeiTi, Sans-serif
+  line-height 1.5
+  font-size .28rem
+  -webkit-touch-callout none
+  user-select none
+  overflow-x hidden
+  background $silver
+
+// ::-webkit-scrollbar
+//   display none
+
+// 横屏模式
+@media only screen and (orientation landscape)
+  body
+  header
+  footer
+    max-width 7.5rem
+
+
+// ====================================================================== UI 样式重构
+// 表单列表组件
+.m-cell
+  &::after
+    content normal
+  .cell-item
+    margin-left .3rem
+    margin-right .3rem
+    padding-left 0
+    &::after
+      margin-left 0
+      border-color $silver
+    .cell-left
+      padding-left .2rem
+      .cell-icon:empty
+        display none
+    .cell-right
+      padding-right .2rem
+
+// 选项卡组件
+.m-tab
+  .tab-nav
+    &::after
+      content normal
+    .tab-nav-item
+      font-size .3rem
+      line-height .88rem
+      &.tab-active
+        color $yellow
+      &::before
+        height .03rem
+        width 100%
+        left 0
+        margin 0
+      &::after
+        content normal
+  .tab-panel
+    margin-top .2rem
+
+// ====================================================================== helper
+// 隐藏 vue 未编译的 Mustache 标签
+[v-cloak]
+.hidden
+  display none
+
+.v-link-active
+  color $yellow
+
+// 隐藏元素
+.vhidden
+  visibility hidden
+
+// 动画
+.anime-fade-in
+  animation: fadeIn 1s
+.anime-slide-down
+  animation: slideDown 1s
+.anime-slide-up
+  animation: slideUp 1s
+
+// vue transitions
+.fade-enter
+.fade-leave-active
+  opacity 0
+.fade-enter-active
+.fade-leave-active
+  transition opacity .3s
+.bounce-enter
+.bounce-leave-active
+  opacity 0
+  transform scale(.5)
+.bounce-enter-active
+.bounce-leave-active
+  transition .3s
+.slide-left-enter
+.slide-right-leave-active
+  opacity: 0
+  transform: translate(30, 0)
+.slide-left-leave-active
+.slide-right-enter
+  opacity: 0
+  transform: translate(-30, 0)
+.slide-left-enter-active
+.slide-left-leave-active
+.slide-right-enter-active
+.slide-right-leave-active
+  // position: absolute
+  transition: .3s cubic-bezier(.55, 0, .1, 1)
+
+
+// ====================================================================== 模块
+// 通用按钮
+.w-btn
+  box-sizing border-box
+  padding 0 2em
+  height .88rem
+  line-height @height
+  border-radius .1rem
+  font-size .32rem
+  color $black
+  background $yellow
+  transition background .2s
+  &.block
+    display block
+    margin auto
+    text-align center
+  &:active:not(.disabled)
+    background $dyellow
+  &.disabled
+    background $gray
+
+// 物品模块
+.w-goods
+  width 1.68rem
+  max-width 1.68rem
+  img
+    display block
+    width 100%
+    height auto
+  p
+    margin-top .15rem
+    line-height 1
+    text-align center
+    font-size .26rem
+
+// 提交状态组件
+.w-status
+  padding .3rem .3rem
+  text-align center
+  line-height 1
+  background #fff
+  &::before
+    content ''
+    display block
+    margin 0 auto
+    width 1.3rem
+    height @width
+    background url(../img/icon-success.png) no-repeat
+    background-size contain
+  > h2
+    margin-top .35rem
+    font-size .32rem
+    color $yellow
+  > p
+    margin-top .15rem
+    font-size .28rem
+    color $lblack
+
+// 空状态
+.w-empty
+  padding 2.1rem .3rem .3rem
+  text-align center
+  font-size .26rem
+  color $gray
+  background url(../img/icon-fail.png) 50% 0 no-repeat
+  background-size auto 1.9rem
+
+
+// ====================================================================== helper
+#app
+  box-sizing border-box
+  position relative
+  height 100%
+  overflow auto
+  // overflow-scrolling touch
+  color $black
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background #F5F5F5
+  // &::-webkit-scrollbar
+    // display none
+  > .view
+    box-sizing border-box
+    position relative
+    min-height 100%
+
+// 首页
+.view.home
+  > header
+    height 4.13rem
+    background url(../img/banner.png) 50% 50% no-repeat
+    background-size cover
+    h1
+    p
+      display none
+  > .main
+    padding-bottom .2rem
+    .panel
+      background #fff
+      > h2
+        padding .18rem 0
+        text-align center
+        font-size .32rem
+      &.borrow
+        margin 0 .3rem .2rem
+        border-radius .15rem
+        margin-top -1.8rem
+        ul
+          display flex
+          flex-wrap wrap
+          justify-content space-around
+          margin 0 .21rem
+          li
+            flex 1 0 auto
+            margin 0 .21rem .35rem
+      &.return
+        p
+          margin .2rem 0 .5rem
+          font-size .25rem
+          text-align center
+          strong
+            margin 0 .15em
+            font-weight normal
+            font-size .5rem
+            color $yellow
+        .action
+          box-sizing content-box
+          padding .8em 0
+          // border-top 1px solid  #F5F5F5
+          text-align center
+          color $yellow
+          hairline-top $silver
+
+// 确认借用页
+.view.confirm-borrow
+  > .main
+    padding-bottom .2rem
+    .panel
+      background #fff
+      &.goods
+        padding .45rem .3rem .4rem
+        .w-goods
+          margin 0 auto
+        .w-empty
+          padding 2.1rem .3rem 0
+        .description
+          display flex
+          justify-content space-around
+          margin 0 .3rem
+          span
+            margin .5rem .3rem 0
+            padding-left .26rem
+            font-size .22rem
+            color $gray
+            background url(../img/icon-clock.png) 0 50% no-repeat
+            background-size .18rem
+            &:nth-child(2)
+              background-image url(../img/icon-mony.png)
+            &:nth-child(3)
+              background-image url(../img/icon-wallet.png)
+
+      &.company
+        margin .3rem .3rem .5rem
+        padding .5rem .3rem
+        border-radius .15rem
+        line-height 1
+        text-align center
+        h3
+          font-size .36rem
+          font-weight 300
+        p
+          margin-top .2rem
+          color $gray
+          font-size .26rem
+
+    > .button
+      margin 0 .3rem
+
+// 借用成功页
+.view.borrow-success
+  > .main
+    padding-bottom .2rem
+    .panel
+      background #fff
+      &.status
+        padding .3rem .3rem
+        .tips
+          margin .1rem auto .2rem
+          text-align center
+          font-size .24rem
+          color $lblack
+          em
+            display block
+            color $gray
+
+      &.info
+        margin-top .45rem
+
+    > .button
+      margin .6rem .3rem 0
+
+
+// ====================================================================== 动画函数
+@keyframes slideDown
+  0%
+    transform: translateY(-100%)
+  100%
+    transform: translateY(0)
+
+@keyframes slideUp
+  0%
+    transform: translateY(100%)
+  100%
+    transform: translateY(0)
+
+@keyframes fadeIn
+  0%
+    opacity: 0
+  50%
+    opacity: 0
+  100%
+    opacity: 1
+
+@keyframes scaleOut
+  0%
+    transform: scale(1)
+    opacity: 1
+  50%
+    transform: scale(2)
+    opacity: .2
+  100%
+    transform: scale(3)
+    opacity: 0
